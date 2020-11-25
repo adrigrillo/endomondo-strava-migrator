@@ -1,0 +1,5 @@
+stravalib
+python-dateutil
+loguru
+tqdm
+fire
