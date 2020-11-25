@@ -5,12 +5,17 @@
 
 # FIRST LEVEL PARAMETERS
 SYSTEM = 'system'
-ACCESS = 'access'
+STRAVA = 'strava'
 ACTIVITIES = 'activities'
 
 # SYSTEM parameters
 FILE_NAME = 'file_name'
 LOG_LEVEL = 'logging_level'
+PORT = 'port'
+
+# STRAVA parameters
+CLIENT_ID = 'client_id'
+REDIRECT_URI = 'url'
 TOKEN = 'token'
 USER = 'user'
 

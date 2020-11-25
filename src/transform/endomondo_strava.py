@@ -1,6 +1,7 @@
 # Endomondo-Strava activities equivalence
+from loguru import logger
 
-ACTIVITIES = {
+_ACTIVITIES = {
     'WALKING': 'Walk',
     'RUNNING': 'Run',
     'PADDLE_TENNIS': 'Workout',
@@ -19,3 +20,18 @@ ACTIVITIES = {
     'SWIMMING': 'Swim',
     'SOCCER': 'Soccer'
 }
+
+
+def transform_activity(endomondo_activity: str) -> str:
+    """ Transform the Endomondo activity type to Strava activity type.
+
+    Args:
+        endomondo_activity (str): Activity type string obtained from the Endomondo
+         data.
+
+    Returns:
+        str: Strava activity type.
+    """
+    strava_activity = _ACTIVITIES.get(endomondo_activity)
+    logger.debug('{} transformed to {}.', endomondo_activity, strava_activity)
+    return strava_activity
