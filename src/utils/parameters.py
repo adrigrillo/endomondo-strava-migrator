@@ -15,7 +15,7 @@ PORT = 'port'
 
 # STRAVA parameters
 CLIENT_ID = 'client_id'
-REDIRECT_URI = 'url'
+SECRET = 'secret'
 TOKEN = 'token'
 USER = 'user'
 

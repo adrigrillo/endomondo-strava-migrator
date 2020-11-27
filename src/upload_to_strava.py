@@ -61,19 +61,9 @@ def upload(path: str = None,
             logger.exception('No internet connection.')
             continue
 
-        try:
-            activity_upload.wait()
-            logger.debug('Successfully uploaded activity.')
-        except TimeoutExceeded:
-            logger.exception('Timeout uploading the activity.')
-            continue
-        except ActivityUploadFailed:
-            logger.exception('Error uploading the activity.')
-            continue
-
         processed_activities.append(activity)
 
-    processed_activities_file_path = Path(app_config.get(SYSTEM, PATH), 'processed.txt')
+        processed_activities_file_path = Path(app_config.get(SYSTEM, PATH), 'processed.txt')
     with open(processed_activities_file_path, 'w') as file:
         file.writelines(processed_activities)
 
