@@ -8,7 +8,7 @@ from loguru import logger
 from stravalib import Client
 
 from utils.config_handler import init_app
-from utils.constants import TEMP_SAVE_PATH, FALLBACK_PORT, CODE_ID_FILE_NAME
+from utils.constants import CONFIG_PATH, FALLBACK_PORT, CODE_ID_FILE_NAME
 from utils.files_handler import check_folder
 from utils.parameters import SYSTEM, PORT
 from utils.strava import get_client_id
@@ -39,10 +39,10 @@ class StravaAuthHandler(BaseHTTPRequestHandler):
 
             # If found save
             if code_id:
-                file_path = Path(check_folder(TEMP_SAVE_PATH), CODE_ID_FILE_NAME)
+                file_path = Path(check_folder(CONFIG_PATH), CODE_ID_FILE_NAME)
                 with open(file_path, 'w+') as file:
                     file.write(code_id)
-                    logger.info('Writing received code_id in {}.', TEMP_SAVE_PATH)
+                    logger.info('Writing received code_id in {}.', CONFIG_PATH)
                 self.send_response(200)
 
             else:

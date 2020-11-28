@@ -13,7 +13,7 @@ from loguru import logger
 from stravalib import Client
 
 from src.utils.parameters import TOKEN, SECRET
-from utils.constants import TEMP_SAVE_PATH, CODE_ID_FILE_NAME, TOKEN_FILE_NAME
+from utils.constants import CONFIG_PATH, CODE_ID_FILE_NAME, TOKEN_FILE_NAME
 from utils.files_handler import check_folder
 from utils.parameters import STRAVA, CLIENT_ID
 
@@ -31,16 +31,20 @@ def get_strava_client(config: ConfigParser) -> Client:
         ValueError: If no token is found in the configuration.
 
     """
-    try:
-        token = config.get(STRAVA, TOKEN)
+    token_file_path = Path(check_folder(CONFIG_PATH), TOKEN_FILE_NAME)
+    if token_file_path.is_file():
+        with open(token_file_path, 'r') as file:
+            token_data = json.load(file)
+
+        token = token_data.get('access_token')
+        # If the file exists but no access token found, check against the temporary auth
         if not token:
+            logger.warning('The token data was found but the access token could'
+                           'not be read.')
             token = get_strava_token_from_code_id(config)
 
-    except NoOptionError:
+    else:
         token = get_strava_token_from_code_id(config)
-
-    # Save in the config for use in the remaining of the execution
-    config.set(STRAVA, TOKEN, token)
 
     client = Client(access_token=token)
     return client
@@ -50,7 +54,7 @@ def get_strava_token_from_code_id(config: ConfigParser) -> str:
     logger.info('No token was defined in the configuration file. Retrieving from'
                 'the temporal authentication code.')
 
-    code_id_path = Path(TEMP_SAVE_PATH, CODE_ID_FILE_NAME)
+    code_id_path = Path(CONFIG_PATH, CODE_ID_FILE_NAME)
     if not code_id_path.is_file():
         logger.error('No temporal authentication code found. Execute '
                      '`request_auth.py` to obtain the temporal access.')
@@ -75,7 +79,7 @@ def get_strava_token_from_code_id(config: ConfigParser) -> str:
                  token['access_token'], token['refresh_token'])
 
     # Save JSON with the response
-    save_path = Path(check_folder(TEMP_SAVE_PATH), TOKEN_FILE_NAME)
+    save_path = Path(check_folder(CONFIG_PATH), TOKEN_FILE_NAME)
     with open(save_path, 'w') as file:
         logger.info('Writing token information to `{}`.', save_path)
         json.dump(token, file, indent=4)

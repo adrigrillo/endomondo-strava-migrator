@@ -5,6 +5,6 @@ FALLBACK_WORKING_FOLDER = '../logs'
 FALLBACK_PORT = 5000
 
 # Temporary folders
-TEMP_SAVE_PATH = '../temp/'
+CONFIG_PATH = '../config/'
 CODE_ID_FILE_NAME = 'code_id.txt'
 TOKEN_FILE_NAME = 'token.json'
