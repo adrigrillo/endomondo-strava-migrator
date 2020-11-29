@@ -14,11 +14,12 @@ def retrieve_json_data(folder_path: str, file_name: str) -> List[Dict]:
     """ Opens the JSON file from Endomondo and returns the data in a dict.
 
     Args:
-        folder_path: path to the workouts folder.
-        file_name: name of the file to open.
+        folder_path (str): path to the workouts folder.
+        file_name (str): name of the file to open.
 
     Returns:
-        activity_data: list of dictionaries with the information of the workout.
+        activity_data (List[Dict]): list of dictionaries with the information
+         of the workout.
     """
     with open(f'{folder_path}{file_name}.json') as file:
         activity_data = json.load(file)

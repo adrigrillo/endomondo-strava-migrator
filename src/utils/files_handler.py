@@ -21,8 +21,12 @@ from utils.parameters import ACTIVITIES, PATH
 def check_folder(path: str) -> str:
     """ Checks if the folder exist and generates it if not.
 
-    :param path: path to the folder to check.
-    :return: path to the folder.
+    Args:
+        path (str): path to the folder to check.
+
+    Returns:
+        str: path to the folder.
+
     """
     if not os.path.exists(path):
         logger.debug("Creating directory {}", path)
@@ -38,10 +42,10 @@ def generate_output_directory_string(working_path: str) -> str:
     https://docs.python.org/3.6/library/datetime.html#strftime-strptime-behavior.
 
     Args:
-        working_path: str. Working path of the project where the results will be saved.
+        working_path (str): Working path of the project where the results will be saved.
 
     Returns:
-        unique folder in the working path were results will be saved.
+        str: unique folder in the working path were results will be saved.
 
     """
     # Generate output folders with timestamp
