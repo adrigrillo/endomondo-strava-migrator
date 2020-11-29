@@ -14,7 +14,7 @@ from typing import Tuple
 from loguru import logger
 from stravalib import Client, exc
 
-from src.utils.parameters import SECRET
+from utils.parameters import SECRET
 from utils.constants import CONFIG_PATH, CODE_ID_FILE_NAME, TOKEN_FILE_NAME
 from utils.files_handler import check_folder
 from utils.parameters import STRAVA, CLIENT_ID

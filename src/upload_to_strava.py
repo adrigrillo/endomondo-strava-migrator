@@ -15,12 +15,11 @@ from loguru import logger
 from tqdm import tqdm
 
 from parsers.endomondo import retrieve_json_data, get_activity_type
-from src.utils.config_handler import init_app
-from src.utils.strava import get_strava_client, upload_activity
 from transform.endomondo_strava import transform_activity
+from utils.config_handler import init_app
 from utils.constants import CONFIG_PATH
 from utils.files_handler import get_activity_files_names, retrieve_activities_path, check_folder
-from utils.strava import handle_rate_limit
+from utils.strava import get_strava_client, upload_activity, handle_rate_limit
 
 
 def upload(path: str = None,
